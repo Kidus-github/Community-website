@@ -16,7 +16,7 @@ function App() {
     setMovies(data.Search);
   };
   useEffect(() => {
-    searchMovies(search);
+    searchMovies('All');
   }, [search]);
   return (
     <div className="app">
