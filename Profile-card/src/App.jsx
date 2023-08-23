@@ -1,5 +1,38 @@
 import "./App.css";
 
+const skills = [
+  {
+    skill: "HTML+CSS",
+    level: "advanced",
+    color: "#2662EA",
+  },
+  {
+    skill: "JavaScript",
+    level: "advanced",
+    color: "#EFD81D",
+  },
+  {
+    skill: "Web Design",
+    level: "advanced",
+    color: "#C3DCAF",
+  },
+  {
+    skill: "Git and GitHub",
+    level: "intermediate",
+    color: "#E84F33",
+  },
+  {
+    skill: "React",
+    level: "advanced",
+    color: "#60DAFB",
+  },
+  {
+    skill: "Svelte",
+    level: "beginner",
+    color: "#FF3B00",
+  },
+];
+
 function App() {
   return (
     <div className="card">
@@ -32,23 +65,29 @@ function Intro() {
   );
 }
 
-function Skill({ skill, emoji, color }) {
+function Skill({ skill, level, color }) {
   return (
     <div className="skill" style={{ backgroundColor: color }}>
-      <p>
-        {skill} <span>{emoji}</span>
-      </p>
+      <span>{skill}</span>
+      <span>
+        {level === "beginner" && "👶"}
+        {level === "intermediate" && "👍"}
+        {level === "advanced" && "💪"}
+      </span>
     </div>
   );
 }
 function Skills() {
   return (
     <div className="skills">
-      <Skill color="blue" skill="HTML + CSS" emoji="💪" />
-      <Skill color="red" skill="JavaScript" emoji="🚀" />
-      <Skill color="gray" skill="React" emoji="⚛️" />
-      <Skill color="brown" skill="Node.JS" emoji="🌐" />
-      <Skill color="purple" skill="MySQL" emoji="🎇" />
+      {skills.map((skill) => (
+        <Skill
+          skill={skill.skill}
+          color={skill.color}
+          level={skill.level}
+          key={skill.skill}
+        />
+      ))}
     </div>
   );
 }
