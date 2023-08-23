@@ -1,12 +1,6 @@
-function Pizza({ photoName, name, ingredients }) {
-  return (
-    <>
-      <img src={photoName} alt={name} />
-      <h1>{name}</h1>
-      <p>{ingredients}</p>
-    </>
-  );
-}
+// import React from "react";
+import "./index.css";
+
 const pizzaData = [
   {
     name: "Focaccia",
@@ -54,29 +48,63 @@ const pizzaData = [
 
 function App() {
   return (
-    <>
-      <Pizza
-        photoName="pizzas/prosciutto.jpg"
-        name={"Pizza Prosciutto"}
-        ingredients={"Tomato, mozarella, ham, aragula, and burrata cheese"}
-      />
-      <Pizza
-        photoName="pizzas/prosciutto.jpg"
-        name={"Pizza Prosciutto"}
-        ingredients={"Tomato, mozarella, ham, aragula, and burrata cheese"}
-      />
-      <Pizza
-        photoName="pizzas/prosciutto.jpg"
-        name={"Pizza Prosciutto"}
-        ingredients={"Tomato, mozarella, ham, aragula, and burrata cheese"}
-      />
-      <Pizza
-        photoName="pizzas/prosciutto.jpg"
-        name={"Pizza Prosciutto"}
-        ingredients={"Tomato, mozarella, ham, aragula, and burrata cheese"}
-      />
-    </>
+    <div className="container">
+      <Header />
+      <Menu />
+
+      <Footer />
+    </div>
   );
+}
+function Pizza({ photoName, name, ingredients, price }) {
+  return (
+    <div className="pizza">
+      <img src={photoName} alt={name} />
+      <div>
+        <h3>{name}</h3>
+        <p>{ingredients}</p>
+        <span>{price + 3}</span>
+      </div>
+    </div>
+  );
+}
+function Header() {
+  return (
+    <header className="header">
+      <h1>Fast React Pizza Co.</h1>
+    </header>
+  );
+}
+function Menu() {
+  return (
+    <main className="menu">
+      <h2>Our Menu</h2>
+      <div className="pizzas">
+        {pizzaData.map((p) => (
+          <Pizza
+            photoName={p.photoName}
+            name={p.name}
+            ingredients={p.ingredients}
+            price={p.price}
+          />
+        ))}
+      </div>
+    </main>
+  );
+}
+
+function Footer() {
+  const hour = new Date().getHours();
+  const openHour = 12;
+  const closeHour = 22;
+  const isOpen = hour >= openHour && hour <= closeHour;
+
+  return (
+    <footer className="footer">
+      {new Date().toTimeString()}. We're currently open!
+    </footer>
+  );
+  // return React.createElement("footer", null, "We're currently open!");
 }
 
 export default App;
