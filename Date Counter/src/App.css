@@ -1,0 +1,9 @@
+.step,
+.count {
+  display: flex;
+  justify-content: center;
+}
+body {
+  display: grid;
+  place-content: center;
+}
