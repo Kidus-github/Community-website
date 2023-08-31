@@ -7,16 +7,16 @@ function Counter() {
   const date = new Date();
   date.setDate(date.getDate() + count);
   return (
-    <>
+    <div className="counter">
+      <h1 className="date">
+        {count > 0
+          ? count + " days from today is "
+          : count < 0
+          ? Math.abs(count) + " days ago was "
+          : " Today is "}
+        <span>{date.toDateString()}</span>
+      </h1>
       <div className="step">
-        <button
-          onClick={() => {
-            setStep((s) => s - 1);
-          }}
-        >
-          -
-        </button>
-        <p> Step: {step}</p>
         <button
           onClick={() => {
             setStep((s) => s + 1);
@@ -24,16 +24,16 @@ function Counter() {
         >
           +
         </button>
-      </div>
-      <div className="count">
+        <p> Step: {step}</p>
         <button
           onClick={() => {
-            setCount((count) => count - step);
+            setStep((s) => s - 1);
           }}
         >
           -
         </button>
-        <p>Count: {count}</p>
+      </div>
+      <div className="count">
         <button
           onClick={() => {
             setCount((count) => count + step);
@@ -41,16 +41,17 @@ function Counter() {
         >
           +
         </button>
+
+        <p>Count: {count}</p>
+        <button
+          onClick={() => {
+            setCount((count) => count - step);
+          }}
+        >
+          -
+        </button>
       </div>
-      <p>
-        {count > 0
-          ? count + " days from today is "
-          : count < 0
-          ? Math.abs(count) + " days ago was "
-          : " Today is "}
-        <span>{date.toDateString()}</span>
-      </p>
-    </>
+    </div>
   );
 }
 
