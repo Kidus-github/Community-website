@@ -1,0 +1,106 @@
+@import url("https://fonts.googleapis.com/css2?family=Aclonica&family=Halant&family=Inter:wght@400;500;600;700&display=swap");
+
+*,
+::before,
+::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+:root {
+  --primary-clr: #003400;
+  --primary-accent-clr: #ffcc00;
+  --primary-bg-clr: #faf5e9;
+}
+.header {
+  position: fixed;
+  width: 100%;
+  padding: 10px 45px 10px 50px;
+  background-color: var(--primary-bg-clr);
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.menu div {
+  background-color: var(--primary-clr);
+  width: 30px;
+  height: 6px;
+  border-radius: 15px;
+}
+.nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0px 5px 5px;
+}
+.pack {
+  background-color: var(--primary-accent-clr);
+  border: 0;
+  border-radius: 30px;
+  font-family: "Inter", sans-serif;
+  font-size: 0.75em;
+  padding: 10px 15px;
+  font-weight: 700;
+  height: 40px;
+  color: var(--primary-clr);
+}
+.logo {
+  font-family: "Aclonica", sans-serif;
+  font-size: 28px;
+  width: 200px;
+  text-align: center;
+  color: var(--primary-clr);
+}
+.video video {
+  width: 100%;
+}
+.visits {
+  background-color: var(--primary-clr);
+  margin-top: -4px;
+  height: 70vh;
+  padding: 0px 50px;
+}
+.visits h2 {
+  padding: 15px 0px 30px;
+  text-align: center;
+  color: var(--primary-accent-clr);
+  font-family: "Halant", serif;
+  font-weight: bold;
+  font-size: 32px;
+}
+.cards {
+  display: flex;
+  gap: 20px;
+}
+.card {
+  background-color: rgba(0, 0, 0, 0.438);
+
+  width: 300px;
+  height: 280px;
+  border-radius: 40px;
+  background-blend-mode: color-burn;
+}
+.footer {
+  height: 80vh;
+  background-color: black;
+  color: var(--primary-bg-clr);
+  padding: 20px 50px;
+}
+.footer h3 {
+  text-align: center;
+  font-size: 1.5em;
+  padding: 30px;
+}
+.contact-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+}
