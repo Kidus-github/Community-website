@@ -16,6 +16,8 @@ body {
 .counter {
   position: relative;
   top: -100px;
+  display: flex;
+  flex-direction: column;
 }
 .step,
 .count {
@@ -27,6 +29,8 @@ body {
 }
 .step {
   background-color: #e5d9ee;
+  align-self: center;
+  padding: 20px;
 }
 .step button {
   background-color: #532874;
@@ -41,6 +45,13 @@ body {
 }
 .count {
   background-color: #d2eecd;
+  align-self: center;
+}
+.count input {
+  outline: none;
+  border: none;
+  padding: 20px;
+  background-color: #d2eecd00;
 }
 .counter p {
   font-size: 1.2em;
@@ -55,4 +66,12 @@ body {
   color: white;
   font-size: 2em;
   font-weight: bold;
+}
+.btn {
+  align-self: center;
+  padding: 20px;
+  border-radius: 5px;
+  border: 0;
+  background-color: #532874;
+  color: white;
 }
