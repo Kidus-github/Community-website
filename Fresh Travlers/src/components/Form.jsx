@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 
-function Form({ form }) {
+function Form({ form, onAddItems }) {
   const [quantity, setQuantity] = useState(1);
   const [discription, setDiscription] = useState("");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState("Essential");
+
   const categories = [
     "Essential",
     "Clothing",
@@ -15,6 +16,18 @@ function Form({ form }) {
 
   function handleSubmit(e) {
     e.preventDefault();
+    if (!discription) return;
+    const newItem = {
+      id: Date.now(),
+      discription: discription,
+      qty: quantity,
+      category: category,
+      packed: false,
+    };
+    onAddItems(newItem);
+    setQuantity(1);
+    setDiscription("");
+    setCategory("Essential");
   }
   return (
     <div className={form.form_section}>

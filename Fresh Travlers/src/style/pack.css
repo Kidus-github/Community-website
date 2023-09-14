@@ -30,3 +30,37 @@ label {
   color: var(--primary-accent-clr);
   font-weight: bold;
 }
+.packingList {
+  padding: 10px 80px;
+}
+.packlist_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.packlist_header button {
+  background-color: rgb(151, 0, 0);
+  border: 0;
+  padding: 8px 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  color: white;
+}
+.packlist_body {
+  padding: 20px 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+}
+.CategoryCard {
+  width: 250px;
+
+  padding: 10px 10px 100px;
+  border-radius: 30px;
+  border: 1px solid #000;
+}
+.stat {
+  background-color: var(--primary-clr);
+  height: 70vh;
+}
