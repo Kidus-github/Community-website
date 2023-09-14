@@ -1,14 +1,14 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-function Nav() {
+function Nav({ navCss }) {
   const navigate = useNavigate();
   return (
-    <div className="nav">
-      <div className="menu">
-        <div className="hamTop"></div>
-        <div className="hamMid"></div>
-        <div className="hamBottom"></div>
+    <div className={navCss.nav}>
+      <div className={"menu"}>
+        <div className={navCss.bgcolor}></div>
+        <div className={navCss.bgcolor}></div>
+        <div className={navCss.bgcolor}></div>
       </div>
       <div className="logo" onClick={() => navigate("../home")}>
         Fresh Travlers

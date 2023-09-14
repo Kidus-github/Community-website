@@ -7,21 +7,13 @@
   margin: 0;
   box-sizing: border-box;
 }
+button {
+  cursor: pointer;
+}
 :root {
   --primary-clr: #003400;
   --primary-accent-clr: #ffcc00;
   --primary-bg-clr: #faf5e9;
-}
-.header {
-  position: fixed;
-  width: 100%;
-  padding: 10px 45px 10px 50px;
-  background-color: var(--primary-bg-clr);
-  background-color: transparent;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 999;
 }
 
 .menu {
@@ -31,23 +23,11 @@
   cursor: pointer;
 }
 .menu div {
-  background-color: var(--primary-clr);
-  background-color: var(--primary-bg-clr);
   width: 30px;
   height: 5px;
   border-radius: 15px;
 }
-.nav {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 5px 0px 5px 5px;
-  color: var(--primary-bg-clr);
-}
-button {
-  cursor: pointer;
-}
+
 .pack {
   background-color: var(--primary-accent-clr);
   border: 0;

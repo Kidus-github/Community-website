@@ -1,9 +1,10 @@
 import React from "react";
 import Nav from "./Nav";
-function Header() {
+
+function Header({ head }) {
   return (
-    <div className={"header "}>
-      <Nav />
+    <div className={head.header}>
+      <Nav navCss={head} />
     </div>
   );
 }

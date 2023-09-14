@@ -1,1 +1,32 @@
-
+input,
+select {
+  outline: none;
+  border-radius: 5px;
+  background-color: var(--primary-bg-clr);
+  padding: 5px;
+  color: var(--primary-clr);
+  font-weight: bold;
+}
+::-webkit-input-placeholder {
+  color: var(--primary-clr);
+  font-weight: bold;
+}
+.Categoryselect {
+  background-color: var(--primary-bg-clr);
+  color: var(--primary-clr);
+  font-weight: bold;
+  padding: 5px 60px 5px 5px;
+  border-radius: 5px;
+}
+label {
+  color: var(--primary-clr);
+  font-weight: bold;
+}
+.add-btn {
+  padding: 10px 25px;
+  border: none;
+  border-radius: 10px;
+  background-color: var(--primary-clr);
+  color: var(--primary-accent-clr);
+  font-weight: bold;
+}
