@@ -23,6 +23,7 @@ function App() {
   );
 }
 function Accordian({ arr }) {
+  const [active, setActive] = useState(null);
   return (
     <div className="accordian">
       {arr.map((item, i) => (
@@ -30,25 +31,43 @@ function Accordian({ arr }) {
           key={i}
           num={i + 1}
           title={item.title}
-          text={item.text}
-        />
+          active={active}
+          setActive={setActive}
+        >
+          {item.text}
+        </AccordianItem>
       ))}
+      <AccordianItem
+        key={22}
+        num={22}
+        title={"Test 1"}
+        active={active}
+        setActive={setActive}
+      >
+        <ul>
+          <li>Break up UI into components</li>
+          <li>make components reusable</li>
+          <li>Place state efficiently</li>
+        </ul>
+      </AccordianItem>
     </div>
   );
 }
 
-function AccordianItem({ num, title, text }) {
-  const [active, setActive] = useState(false);
-  function handleToggle() {
-    setActive(() => !active);
+function AccordianItem({ num, title, children, active, setActive }) {
+  function handleToggle(id) {
+    setActive(() => (active === id ? null : id));
   }
   return (
-    <div className={active ? `item open` : `item`} onClick={handleToggle}>
+    <div
+      className={active === num ? `item open` : `item`}
+      onClick={() => handleToggle(num)}
+    >
       <p className="number">{num < 9 ? `0${num}` : num}</p>
       <p className="title">{title}</p>
-      <p className="icon">{active ? "-" : "+"}</p>
+      <p className="icon">{active === num ? "-" : "+"}</p>
 
-      {active && <div className="content-box">{text}</div>}
+      {active && <div className="content-box">{children}</div>}
     </div>
   );
 }
