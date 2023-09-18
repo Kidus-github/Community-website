@@ -33,6 +33,16 @@ function App() {
     setSelectedFriend((curr) => (curr?.id === friend.id ? null : friend));
     setShowAddFriend(false);
   }
+  function handleSplitBill(value) {
+    setFriends((friends) =>
+      friends.map((friend) =>
+        friend.id === selectedFriend.id
+          ? { ...friend, balance: friend.balance + value }
+          : friend
+      )
+    );
+    setSelectedFriend(null);
+  }
   return (
     <div className="app">
       <div className="sidebar">
@@ -46,7 +56,9 @@ function App() {
           {!showAddFriend ? `Add Friend` : `Close`}
         </Button>
       </div>
-      {selectedFriend && <FormSplitBill Friend={selectedFriend} />}
+      {selectedFriend && (
+        <FormSplitBill Friend={selectedFriend} onSplit={handleSplitBill} />
+      )}
     </div>
   );
 }
@@ -142,23 +154,50 @@ function Button({ children, handleClick }) {
   );
 }
 
-function FormSplitBill({ Friend }) {
+function FormSplitBill({ Friend, onSplit }) {
+  const [bill, setBill] = useState("");
+  const [paidByUser, setPaidByUser] = useState("");
+  const [whoIsPaying, setWhoIsPaying] = useState("user");
+  const Expenses = bill ? bill - paidByUser : "";
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (!bill || !paidByUser) return;
+    onSplit(whoIsPaying === "user" ? Expenses : -paidByUser);
+  }
   return (
-    <form className="form-split-bill">
+    <form className="form-split-bill" onSubmit={handleSubmit}>
       <h2>split the bill with {Friend.name}</h2>
       <label>💰 Bill Value</label>
-      <input type="number" name="value" />
+      <input
+        type="number"
+        name="value"
+        value={bill}
+        onChange={(e) => setBill(Number(e.target.value))}
+      />
       <label>🧍‍♂️ Your Expences</label>
-      <input type="number" name="value" />
+      <input
+        type="number"
+        name="Expense"
+        value={paidByUser}
+        onChange={(e) =>
+          setPaidByUser(
+            Number(e.target.value) > bill ? paidByUser : Number(e.target.value)
+          )
+        }
+      />
       <label>👬 {Friend.name}'s Expense</label>
-      <input type="number" name="value" disabled />
+      <input type="number" name="whopays" disabled value={Expenses} />
       <label>🤑 Who is paying the bill</label>
-      <select name="Select" id="">
+      <select
+        name="Select"
+        value={whoIsPaying}
+        onChange={(e) => setWhoIsPaying(e.target.value)}
+      >
         <option value="user">You</option>
         <option value="friend">{Friend.name}</option>
       </select>
 
-      <Button>Split Bill</Button>
+      <Button onSubmit={handleSubmit}>Split Bill</Button>
     </form>
   );
 }
