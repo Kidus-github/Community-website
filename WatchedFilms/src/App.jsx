@@ -1,30 +1,6 @@
 import { useEffect, useState } from "react";
 import StarRating from "./StarRateing";
 
-const tempMovieData = [
-  {
-    imdbID: "tt1375666",
-    Title: "Inception",
-    Year: "2010",
-    Poster:
-      "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_SX300.jpg",
-  },
-  {
-    imdbID: "tt0133093",
-    Title: "The Matrix",
-    Year: "1999",
-    Poster:
-      "https://m.media-amazon.com/images/M/MV5BNzQzOTk3OTAtNDQ0Zi00ZTVkLWI0MTEtMDllZjNkYzNjNTc4L2ltYWdlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SX300.jpg",
-  },
-  {
-    imdbID: "tt6751668",
-    Title: "Parasite",
-    Year: "2019",
-    Poster:
-      "https://m.media-amazon.com/images/M/MV5BYWZjMjk3ZTItODQ2ZC00NTY5LWE0ZDYtZTI3MjcwN2Q5NTVkXkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_SX300.jpg",
-  },
-];
-
 const tempWatchedData = [
   {
     imdbID: "tt1375666",
@@ -98,6 +74,9 @@ export default function App() {
   function handleCloseMovie() {
     setSelectedMovieID(null);
   }
+  function handleAddWatched(movie) {
+    setWatched((watched) => [...watched, movie]);
+  }
   useEffect(() => {
     async function FetchMovies() {
       try {
@@ -151,6 +130,7 @@ export default function App() {
             <SelectedMovie
               selectedeMovieID={selectedeMovieID}
               OnCloseMovie={handleCloseMovie}
+              OnAddWatched={handleAddWatched}
             />
           ) : (
             <>
@@ -222,9 +202,10 @@ function List({ movie, handleSelected }) {
     </li>
   );
 }
-function SelectedMovie({ selectedeMovieID, OnCloseMovie }) {
+function SelectedMovie({ selectedeMovieID, OnCloseMovie, OnAddWatched }) {
   const [movie, setMovie] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const [Rating, setRating] = useState(0);
   const {
     Title: title,
     Year: year,
@@ -237,6 +218,21 @@ function SelectedMovie({ selectedeMovieID, OnCloseMovie }) {
     Director: director,
     Genre: genre,
   } = movie;
+
+  function handleAdd() {
+    const newWatchedMovies = {
+      imdbID: selectedeMovieID,
+      title,
+      year,
+      poster,
+      userRating: Number(Rating),
+      imdbRating: Number(imdbRating),
+      runtime: Number(runtime.split(" ").at(0)),
+    };
+    OnAddWatched(newWatchedMovies);
+    OnCloseMovie();
+  }
+
   useEffect(() => {
     async function SelectedMovie() {
       setIsLoading(true);
@@ -274,7 +270,17 @@ function SelectedMovie({ selectedeMovieID, OnCloseMovie }) {
           </header>
           <section>
             <div className="rating">
-              <StarRating maxRating={10} size={24} key={movie.imdbID} />
+              <StarRating
+                maxRating={10}
+                size={24}
+                key={movie.imdbID}
+                onSetRating={setRating}
+              />
+              {Rating > 0 && (
+                <button className="btn-add" onClick={handleAdd}>
+                  + Add to list
+                </button>
+              )}
             </div>
             <p>
               <em>{plot}</em>
@@ -328,12 +334,12 @@ function WatchedMovieList({ watched }) {
 function WatchedMovie({ movie }) {
   return (
     <li>
-      <img src={movie.Poster} alt={`${movie.Title} poster`} />
-      <h3>{movie.Title}</h3>
+      <img src={movie.poster} alt={`${movie.title} poster`} />
+      <h3>{movie.title}</h3>
       <div>
         <p>
           <span>⭐️</span>
-          <span>{movie.imdbRating}</span>
+          <span>{movie.imdbRating.toFixed(2)}</span>
         </p>
         <p>
           <span>🌟</span>
@@ -341,7 +347,7 @@ function WatchedMovie({ movie }) {
         </p>
         <p>
           <span>⏳</span>
-          <span>{movie.runtime} min</span>
+          <span>{movie.runtime.toFixed(2)} min</span>
         </p>
       </div>
     </li>
