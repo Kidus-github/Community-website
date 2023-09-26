@@ -7,11 +7,12 @@ import Search from "./Componets/Search.jsx";
 import NumResults from "./Componets/NumResults.jsx";
 import SelectedMovie from "./Componets/SelectedMovie.jsx";
 import Loading from "./Componets/Loading.jsx";
+import ErrorMsg from "./Componets/ErrorMsg.jsx";
 import Box from "./Componets/Box.jsx";
 import Main from "./Componets/Main.jsx";
 import DisplayList from "./Componets/DisplayList.jsx";
 
-const KEY = "95042ae7";
+export const KEY = "95042ae7";
 
 export default function App() {
   const [movies, setMovies] = useState([]);
@@ -24,6 +25,7 @@ export default function App() {
   function handleSelected(id) {
     setSelectedMovieID((cur) => (cur === id ? null : id));
   }
+
   function handleCloseMovie() {
     setSelectedMovieID(null);
   }
@@ -34,20 +36,23 @@ export default function App() {
     setWatched((watched) => watched.filter((movie) => movie.imdbID !== id));
   }
   useEffect(() => {
+    const Controller = new AbortController();
     async function FetchMovies() {
       try {
         setIsLoading(true);
         setError("");
         const res = await fetch(
-          `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`
+          `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
+          { signal: Controller.signal }
         );
         if (!res.ok)
           throw new Error("Something went wrong with fetching movies");
         const data = await res.json();
         if (data.Response === "False") throw new Error("Movie Not Found");
         setMovies(data.Search);
+        // setError("");
       } catch (err) {
-        setError(err.message);
+        if (err.name !== "AbortError") setError(err.message);
       } finally {
         setIsLoading(false);
       }
@@ -58,6 +63,9 @@ export default function App() {
       return;
     }
     FetchMovies();
+    return () => {
+      Controller.abort();
+    };
   }, [query]);
 
   return (

@@ -1,5 +1,7 @@
 import Loading from "./Loading";
 import StarRating from "../StarRateing";
+import { useState, useEffect } from "react";
+import { KEY } from "../App";
 export default function SelectedMovie({
   selectedeMovieID,
   OnCloseMovie,
@@ -42,6 +44,13 @@ export default function SelectedMovie({
     OnAddWatched(newWatchedMovies);
     OnCloseMovie();
   }
+  useEffect(() => {
+    if (!title) return;
+    document.title = `Movie | ${title}`;
+    return () => {
+      document.title = "Watched Movies";
+    };
+  }, [title]);
   useEffect(() => {
     async function SelectedMovie() {
       setIsLoading(true);
@@ -104,8 +113,8 @@ export default function SelectedMovie({
             </div>
             <p>
               <em>{plot}</em>
-              <p>Starring {actors}</p>
-              <p>Directed by {director}</p>
+              <span>Starring {actors}</span>
+              <span>Directed by {director}</span>
             </p>
           </section>
         </>
