@@ -1,35 +1,61 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react";
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [amount, setAmount] = useState(1);
+  function handleAmount(amount) {
+    setAmount(amount);
+  }
+  const [from, setFrom] = useState("USD");
+  const [to, setTo] = useState("EUR");
+  const [converted, setConverted] = useState();
+  const [isLoading, setIsLoading] = useState(false);
+  useEffect(() => {
+    const Controller = new AbortController();
+    async function FetchConvertedAmount() {
+      setIsLoading(true);
+      const res = await fetch(
+        `https://api.frankfurter.app/latest?amount=${amount}&from=${from}&to=${to}`
+      );
+      const data = await res.json();
+      setConverted(data.rates[to]);
+      setIsLoading(false);
+    }
+    if (to === from) return setConverted(amount);
+    FetchConvertedAmount();
+  }, [amount, from, to]);
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
+    <div>
+      <input
+        type="text"
+        value={String(amount)}
+        onChange={(e) => handleAmount(e.target.value)}
+        disabled={isLoading}
+      />
+      <select
+        value={from}
+        onChange={(e) => setFrom(e.target.value)}
+        disabled={isLoading}
+      >
+        <option value="USD">USD</option>
+        <option value="EUR">EUR</option>
+        <option value="CAD">CAD</option>
+        <option value="INR">INR</option>
+      </select>
+      <select
+        value={to}
+        onChange={(e) => setTo(e.target.value)}
+        disabled={isLoading}
+      >
+        <option value="USD">USD</option>
+        <option value="EUR">EUR</option>
+        <option value="CAD">CAD</option>
+        <option value="INR">INR</option>
+      </select>
+      <p>
+        {isLoading && converted && "Loading..."}
+        {!isLoading && `${converted} ${to}`}
       </p>
-    </>
-  )
+    </div>
+  );
 }
-
-export default App
