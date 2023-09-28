@@ -45,6 +45,16 @@ export default function SelectedMovie({
     OnCloseMovie();
   }
   useEffect(() => {
+    function Callback(e) {
+      e.code === "Escape" && OnCloseMovie();
+    }
+
+    document.addEventListener("keydown", Callback);
+    return () => {
+      document.removeEventListener("keydown", Callback);
+    };
+  }, [OnCloseMovie]);
+  useEffect(() => {
     if (!title) return;
     document.title = `Movie | ${title}`;
     return () => {
