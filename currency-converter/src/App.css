@@ -1,0 +1,134 @@
+*,
+::after,
+::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+.header {
+  padding: 8px 40px;
+  background-color: #151618;
+  height: 60vh;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: fixed;
+  width: 100%;
+  z-index: 99;
+  background-color: #151618;
+  top: 0;
+}
+.logo img {
+  width: 50px;
+  height: 50px;
+}
+.logo h1 {
+  font-size: 1.5em;
+  position: relative;
+  color: white;
+}
+.logo h1 span {
+  color: #3abd11;
+}
+.logo h1::after {
+  content: "";
+  width: 100%;
+  height: 5px;
+  position: absolute;
+  background-image: linear-gradient(to right, #3abd11, white);
+  bottom: -8px;
+  border-radius: 10px;
+  left: 0;
+}
+.main {
+  background-color: white;
+  position: relative;
+  top: -130px;
+  margin: 0 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px black;
+}
+.title {
+  padding: 80px;
+  background-color: #151618;
+  position: relative;
+  top: 40px;
+}
+.title h1 {
+  color: #3abd11;
+  font-size: 2.2em;
+  text-align: center;
+}
+.tab-section {
+  display: flex;
+}
+.tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-grow: 1;
+  padding: 20px 0px;
+  background-color: #39bd1133;
+  cursor: pointer;
+}
+.tab:hover {
+  background-color: #39bd111f;
+}
+.tab img {
+  width: 30px;
+  height: 30px;
+}
+.active {
+  background-color: white;
+  border-radius: 25px 0 0 0;
+  font-weight: bold;
+  color: #3abd11;
+}
+.convertion {
+  margin-top: 50px;
+  padding: 0px 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.swap {
+  border: 1px solid #39bd1156;
+  background-color: transparent;
+  padding: 8px;
+  border-radius: 50%;
+  position: relative;
+  top: 10px;
+  cursor: pointer;
+}
+.swap img {
+  width: 15px;
+  height: 15px;
+}
+.convertion label {
+  display: block;
+  font-weight: bold;
+  color: #151618;
+  font-size: 1.2em;
+}
+.Amount input,
+select {
+  width: 250px;
+  padding: 15px 50px 15px 5px;
+  border-radius: 5px;
+  border: 1px solid #020a0070;
+}
+.output {
+  padding: 40px 50px;
+}
+.output h3 {
+  margin: 10px 0px;
+  color: #151618;
+  font-size: 2em;
+}
+.output p {
+  color: #151618ab;
+  font-size: 1.2em;
+}
