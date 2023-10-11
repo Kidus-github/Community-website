@@ -13,9 +13,9 @@ export default function SelectedMovie({
   const [isLoading, setIsLoading] = useState(false);
   const [Rating, setRating] = useState(0);
   const isWatched = watched
-    .map((movie) => movie.imdbID)
+    ?.map((movie) => movie.imdbID)
     .includes(selectedeMovieID);
-  const WatchedUserRating = watched.find(
+  const WatchedUserRating = watched?.find(
     (movie) => movie.imdbID === selectedeMovieID
   )?.userRating;
   const {
