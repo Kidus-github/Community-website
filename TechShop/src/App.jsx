@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import NavBar from "./components/NavBar";
 // import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -8,14 +8,12 @@ import Cart from "./pages/cart/Cart";
 function App() {
   const [cart, setCart] = useState([]);
   const [products, setProducts] = useState([]);
-  let totalPrice = getTotalPrice();
+  const [totalPrice, setTotalPrice] = useState(0);
 
   function addtoCart(itemToAdd) {
-    console.log(itemToAdd);
     setCart([...cart, { ...itemToAdd }]);
   }
   function removeToCart(itemToRemove) {
-    console.log(itemToRemove);
     let found = false;
 
     setCart(
@@ -30,10 +28,12 @@ function App() {
   }
   function getTotalPrice() {
     let total = 0;
-    cart.map((item) => total + Number(item.price));
-    console.log("called");
-    return total;
+    cart.map((item) => (total += Number(item.price)));
+    setTotalPrice(total);
   }
+  useEffect(() => {
+    getTotalPrice();
+  }, [cart]);
   return (
     <>
       <Router>

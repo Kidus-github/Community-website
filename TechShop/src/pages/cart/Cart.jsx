@@ -1,8 +1,10 @@
 import React from "react";
 import CartItem from "./CartItem";
 import "./cart.css";
+import { Navigate, useNavigate } from "react-router-dom";
 function Cart({ cart, addtoCart, removeToCart, totalPrice }) {
   const itemInCart = cart.filter((item) => item.id);
+  const navigate = useNavigate();
   return (
     <div className="cart">
       <div>
@@ -24,11 +26,15 @@ function Cart({ cart, addtoCart, removeToCart, totalPrice }) {
             />
           ))}
       </div>
-      <div className="checkout">
-        <p>SubTotal: ${totalPrice}</p>
-        <button> Continue Shopping</button>
-        <button>Checkout</button>
-      </div>
+      {totalPrice > 0 ? (
+        <div className="checkout">
+          <p>SubTotal: ${totalPrice}</p>
+          <button onClick={() => navigate("/")}> Continue Shopping</button>
+          <button>Checkout</button>
+        </div>
+      ) : (
+        <h3>Your cart is Empty</h3>
+      )}
     </div>
   );
 }
