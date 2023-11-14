@@ -1,0 +1,22 @@
+.cartItems {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  row-gap: 20px;
+  place-items: center;
+}
+
+.cartItem {
+  width: 200px;
+  /* height: 250px; */
+  margin: 10px;
+  text-align: center;
+}
+.cartItem img {
+  width: 100%;
+  height: 250px;
+}
+/* .description {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  } */
