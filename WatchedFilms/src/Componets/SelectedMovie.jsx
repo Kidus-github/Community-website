@@ -1,7 +1,8 @@
 import Loading from "./Loading";
 import StarRating from "../StarRateing";
 import { useState, useEffect, useRef } from "react";
-import { KEY } from "../App";
+import { useKey } from "../useKey";
+// import { KEY } from "../App";
 export default function SelectedMovie({
   selectedeMovieID,
   OnCloseMovie,
@@ -12,7 +13,7 @@ export default function SelectedMovie({
   const [isLoading, setIsLoading] = useState(false);
   const [Rating, setRating] = useState(0);
   const countRef = useRef(0);
-
+  const KEY = "95042ae7";
   useEffect(() => {
     if (Rating) countRef.current = countRef.current + 1;
   }, [Rating]);
@@ -49,16 +50,8 @@ export default function SelectedMovie({
     OnAddWatched(newWatchedMovies);
     OnCloseMovie();
   }
-  useEffect(() => {
-    function Callback(e) {
-      e.code === "Escape" && OnCloseMovie();
-    }
+  useKey("Escape", OnCloseMovie);
 
-    document.addEventListener("keydown", Callback);
-    return () => {
-      document.removeEventListener("keydown", Callback);
-    };
-  }, [OnCloseMovie]);
   useEffect(() => {
     if (!title) return;
     document.title = `Movie | ${title}`;
