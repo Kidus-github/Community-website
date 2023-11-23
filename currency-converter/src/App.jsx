@@ -7,7 +7,7 @@ export default function App() {
   function handleActive(activetab) {
     setactive(activetab);
   }
-  const [amount, setAmount] = useState(1);
+  const [amount, setAmount] = useState("");
   const [from, setFrom] = useState("USD");
   const [to, setTo] = useState("EUR");
 
@@ -15,7 +15,7 @@ export default function App() {
     setAmount((a) => (a = amount));
   }
   function handlefrom(fromcurr) {
-    setFrom(from);
+    setFrom(fromcurr);
   }
   function handleto(tocurr) {
     setTo(tocurr);
@@ -130,7 +130,6 @@ function Convertion({
   useEffect(() => {
     async function FetchConvertedAmount() {
       if (amount === "") {
-        handleAmount(0);
         setConverted(0);
         return;
       }
@@ -183,7 +182,7 @@ function Output({ isLoading, converted, to, amount, from }) {
   return (
     <div className="output">
       <p>
-        {amount} {from} =
+        {amount ? amount : "0"} {from} =
       </p>
       <h3>
         {isLoading && converted && "Loading..."}
