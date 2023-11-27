@@ -31,19 +31,21 @@ function getWeatherIcon(wmoCode) {
 }
 
 class classyWeather extends React.Component {
-  state = {
-    location: "",
-    isLoading: false,
-    displayLocation: "",
-    weather: {},
-  };
-
-  fetchWeather = () => {
-    if (this.state.location.length < 2) return;
+  constructor(props) {
+    super(props);
+    this.state = {
+      location: "Ethiopia",
+      isLoading: false,
+      displayLocation: "",
+      weather: {},
+    };
+    this.fetchWeather = this.fetchWeather.bind(this);
+  }
+  fetchWeather() {
     console.log("loading data ..");
     console.log(this);
     this.getWeather(this.state.location);
-  };
+  }
 
   async getWeather(location) {
     try {
@@ -76,29 +78,21 @@ class classyWeather extends React.Component {
     }
   }
 
-  setLocation = (e) => {
-    this.setState({ location: e.target.value });
-  };
-
-  //this can be equal to useEffect []
-  componentDidMount() {
-    this.setState({ location: localStorage.getItem("location") || "" });
-    //this.fetchWeather();
-  }
-  //this can be equal to useEffect [width dependence]
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.location !== prevState.location) {
-      this.fetchWeather();
-
-      localStorage.setItem("location", this.state.location);
-    }
-  }
-
   render() {
     return (
       <div className="app">
         <h1>Classy Weather</h1>
-        <Input location={this.state.location} setState={this.setLocation} />
+        <div>
+          <input
+            type="text"
+            placeholder="Search for location..."
+            value={this.state.location}
+            onChange={(e) => {
+              this.setState({ location: e.target.value });
+            }}
+          />
+        </div>
+        <button onClick={this.fetchWeather}>Get Weather</button>
         {this.state.isLoading && <p>Loading...</p>}
         {this.state.weather.weathercode && (
           <Weather
@@ -112,24 +106,7 @@ class classyWeather extends React.Component {
 }
 export default classyWeather;
 
-class Input extends React.Component {
-  render() {
-    return (
-      <div>
-        <input
-          type="text"
-          placeholder="Search for location..."
-          value={this.props.location}
-          onChange={this.props.setState}
-        />
-      </div>
-    );
-  }
-}
 class Weather extends React.Component {
-  // componentWillUnmount(){
-  //   console.log('weather is unmpunting')
-  // }
   render() {
     const {
       temperature_2m_max: max,
